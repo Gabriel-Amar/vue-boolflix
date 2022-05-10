@@ -31,7 +31,7 @@ export default {
                 params: {
                     api_key: this.apiKey,
                     query: this.search,
-                    language: "it-IT"
+                    
                 }
             }
                 axios.get(this.apiUrl + "movie?", paramObj).then((res)=>{
