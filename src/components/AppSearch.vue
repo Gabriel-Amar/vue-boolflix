@@ -1,61 +1,25 @@
 <template>
     <div>
-        <div class="titolo">
-            <h1>Boolflix</h1>
-        </div>
-        <div class="cerca">
-            <input v-model="search" v-on:keyup.enter="cercaFilm" placeholder="Cerca un film" type="text">
-            <button @click="cercaFilm"  type="button" class="btn btn-primary">Cerca Film</button>
-            <div v-for="film in filmList" :key="film">
-                <p>Titolo: {{film.title}}</p>
-                <p>Titolo originale: {{film.original_title}}</p>
-                <p>Lingua: <country-flag :country='FilmLanguage(film)' size='normal'/></p>
-                <p>Voto: {{film.vote_average}}</p>
-            </div>
-        </div>
+        <input v-model="search" @keyup.enter="$emit('performSearch', search)" placeholder="Cerca un film" type="text">
+        <button @click="cerca"  type="button" class="btn btn-primary">Cerca Film</button>
     </div>
 </template>
 
 <script>
-import axios from "axios"
 
 
 export default {
     name: "AppSearch",
-    
-
     data(){
         return{
-            apiUrl: 'https://api.themoviedb.org/3/',
-            apiKey: "f9f88b1e607ce852eb8d91625dc47ba1",
-            filmList: [],
             search:"",
         }
     },
     methods:{
-        cercaFilm(){
-            const queryParams = {
-                params: {
-                    api_key: this.apiKey,
-                    query: this.search,
-                }
-            }
-                axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
-                    this.filmList = res.data.results;
-                })
-                .catch((err)=>{
-                    console.log(err)
-                })
-            },
-            FilmLanguage(film){
-                if(film.original_language === 'en'){
-                    return film.original_language = 'gb'
-                }else if(film.original_language === 'ja'){
-                    return film.original_language = 'jp'
-                }else{
-                    return film.original_language
-                }
-            }
+        cerca(){
+            this.$emit('performSearch', this.search)
+            this.search = ''
+        }
     },
     computed:{
         
