@@ -1,13 +1,19 @@
 <template>
     <div>
-        <input v-model="search" placeholder="Cerca un film" type="text">
-        <button @click="cercaFilm" type="button">Cerca Film</button>
-        
+        <div class="titolo">
+            <h1>Boolflix</h1>
+        </div>
+        <div class="cerca">
+            <input v-model="search" placeholder="Cerca un film" type="text">
+            <button @click="cercaFilm" type="button" class="btn btn-primary">Cerca Film</button>
             <div v-for="film in filmList" :key="film">
-                <p>{{'Titolo: '+film.title}}</p>
-                <p>{{'Lingua: '+film.original_language}}</p>
-                <p>{{'Voto: '+film.vote_average}}</p>
+                <p>{{'Titolo: '+ film.title}}</p>
+                <p>{{'Titolo originale: '+ film.original_title}}</p>
+                <p>{{'Lingua: '+ film.original_language}}</p>
+                <p>{{'Voto: '+ film.vote_average}}</p>
             </div>
+        </div>
+        
         
     </div>
 </template>
@@ -16,10 +22,10 @@
 import axios from "axios"
 
 export default {
-    name: "AppGrid",
+    name: "AppSearch",
     data(){
         return{
-            apiUrl: 'https://api.themoviedb.org/3/search/',
+            apiUrl: 'https://api.themoviedb.org/3/',
             apiKey: "f9f88b1e607ce852eb8d91625dc47ba1",
             filmList: [],
             search:"",
@@ -34,7 +40,7 @@ export default {
                     
                 }
             }
-                axios.get(this.apiUrl + "movie?", paramObj).then((res)=>{
+                axios.get(this.apiUrl + "search/movie", paramObj).then((res)=>{
                     this.filmList = res.data.results;
                 })
                 .catch((err)=>{
@@ -42,10 +48,16 @@ export default {
                 })
             }
     },
+    computed:{
+        
+    }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../assets/style/general.scss";
+
+
 button{
     color: black;
 }
