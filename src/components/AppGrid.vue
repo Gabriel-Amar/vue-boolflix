@@ -2,8 +2,7 @@
     <section>
         
         <div class="container-fluid">
-            <h1 v-if="items">{{titolo}}</h1>
-            <h1 v-else></h1>
+            
             <div class="row">
             <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
