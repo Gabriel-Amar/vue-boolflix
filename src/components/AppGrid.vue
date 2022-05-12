@@ -1,15 +1,24 @@
 <template>
     <section>
-        <div class="titolo">
+        <!-- <div class="titolo">
             {{title}}
-        </div>
-        <div class="cerca">
-            <div v-for="item in items" :key="item.id">
-                <p>Titolo: {{item.title ? item.title : item.name}}</p>
-                <p>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</p>
-                <p>Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></p>
-                <p>Voto: {{item.vote_average}}</p>
-                <img class="img-fluid" :src="image + item.poster_path" alt="">
+        </div> -->
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-4" v-for="item in items" :key="item.id">
+                <div class="product-image">
+                    <img class="img-fluid" :src="image + item.poster_path" alt="">
+                    <div class="info">
+                        <h2>{{item.title ? item.title : item.name}}</h2>
+                            <div>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</div>
+                            <div>Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
+                            <div v-for="(n,index) in 5" :key="index">
+                                <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>
@@ -30,16 +39,53 @@ export default {
     methods:{
         FilmLanguage(film){
                         if(film.original_language === 'en'){
-                            return film.original_language = 'gb'
+                            return 'gb'
                         }else if(film.original_language === 'ja'){
-                            return film.original_language = 'jp'
+                            return 'jp'
                         }else{
                             return film.original_language
                         }
                     },
+                    transformScale(film){
+                        return Math.round(film.vote_average / 2)
+                    }
+        
     }
 }
 </script>
 
 <style lang="scss">
-</style>
+.fa-solid{
+    color: #ffbd00;
+}
+
+.product-image {
+	transition: all 0.3s ease-out;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+.info {
+    background: rgba(27, 26, 26, 0.9);
+    transition: all 0.3s ease-out;
+    transform: translateX(-100%);
+    position: absolute;
+    line-height: 1.8;
+    text-align: left;
+    font-size: 105%;
+    cursor: pointer;
+    color: #FFF;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.info h2 {text-align: center}
+.product-image:hover .info{transform: translateX(0);}
+.info div{transition: 0.3s ease;}
+.product-image:hover img {
+    transition: all 0.3s ease-out;
+    animation:kenburns-top .5s ease-out both
+    }
+@keyframes kenburns-top{0%{transform:scale(1) translateY(0);transform-origin:50% 16%}100%{transform:scale(1.25) translateY(-15px);transform-origin:top}}</style>
