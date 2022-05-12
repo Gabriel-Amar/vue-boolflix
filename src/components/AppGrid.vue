@@ -7,7 +7,8 @@
             <div class="row">
             <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
-                    <img class="img-fluid" :src="image + item.poster_path" alt="">
+                    <img v-if="item.poster_path" class="img-fluid" :src="image + item.poster_path" alt="">
+                    <img class="img-fluid" v-else src="../assets/nt0ii3ns2zc29vwuqbug.jpg" alt="">
                     <div class="info">
                         <h5 class="text-center">{{item.title ? item.title : item.name}}</h5>
                             <div>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</div>

@@ -2,20 +2,20 @@
     <div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2" v-for="pop in popularList" :key="pop.id">
-                    <div class="product-image">
-                    <img class="img-fluid" :src="image + pop.backdrop_path" alt="">
+            <div class="col-2" v-for="item in popularList" :key="item.id">
+                <div class="product-image">
+                    <img class="img-fluid" :src="image + item.poster_path" alt="">
                     <div class="info">
-                        <h5 class="text-center">{{pop.title ? pop.title : pop.name}}</h5>
-                            <div>Titolo originale: {{pop.original_title ? pop.original_title : pop.original_name}}</div>
-                            <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(pop)' size='normal'/></div>
+                        <h5 class="text-center">{{item.title}}</h5>
+                            <div>Titolo originale: {{item.original_title}}</div>
+                            <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
                             <span v-for="(n,index) in 5" :key="index">
-                                <span :class="n <= transformScale(pop) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
+                                <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
                             </span>
-                            <div>Trama: {{pop.overview}}</div>
+                            <div>Trama: {{item.overview}}</div>
                     </div>
                 </div>
-                </div>
+            </div>
             </div>
         </div>
     </div>
