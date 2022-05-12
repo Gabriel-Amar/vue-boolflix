@@ -1,13 +1,13 @@
 <template>
     <section>
-        <!-- <div class="titolo">
-            {{title}}
-        </div> -->
+        
         <div class="container-fluid">
+            <h1 v-if="items">{{titolo}}</h1>
+            <h1 v-else></h1>
             <div class="row">
             <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
-                    <img v-if="item.poster_path" class="img-fluid" :src="image + item.poster_path" alt="">
+                    <img v-if="item.poster_path" class="img-fluid" :src="img + item.poster_path" alt="">
                     <img class="img-fluid" v-else src="../assets/nt0ii3ns2zc29vwuqbug.jpg" alt="">
                     <div class="info">
                         <h5 class="text-center">{{item.title ? item.title : item.name}}</h5>
@@ -27,14 +27,15 @@
 
 <script>
 export default {
-    name: 'GridList',
+    name: 'AppGrid',
     props:{
         items: Array,
-        title: String
+        titolo: String,
     },
     data(){
         return {
-            image:'https://image.tmdb.org/t/p/w342'
+            img:'https://image.tmdb.org/t/p/w342',
+            
         }
     },
     methods:{
@@ -56,6 +57,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1{
+    color: whitesmoke;
+}
 .fa-solid{
     color: #ffbd00;
 }
@@ -82,6 +86,7 @@ export default {
     width: 100%;
     left: 0;
     top: 0;
+    padding: 15px;
 }
 .info h2 {text-align: center}
 .product-image:hover .info{transform: translateX(0);}

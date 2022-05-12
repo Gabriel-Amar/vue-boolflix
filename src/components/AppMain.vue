@@ -1,10 +1,12 @@
 <template>
-    <div>
+    <section>
         <div class="container-fluid">
             <div class="row">
-            <div class="col-2" v-for="item in popularList" :key="item.id">
+            
+            <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
-                    <img class="img-fluid" :src="image + item.poster_path" alt="">
+                    <img v-if="item.poster_path" class="img-fluid" :src="img + item.poster_path" alt="">
+                    <img class="img-fluid" v-else src="../assets/nt0ii3ns2zc29vwuqbug.jpg" alt="">
                     <div class="info">
                         <h5 class="text-center">{{item.title}}</h5>
                             <div>Titolo originale: {{item.original_title}}</div>
@@ -18,35 +20,48 @@
             </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
-import axios from "axios"
+
 export default {
 name: "AppMain",
+props:{
+    items: Array,
+    titolo: String,
+},
 data(){
     return{
-        apiUrl: 'https://api.themoviedb.org/3/',
-        apiKey: "f9f88b1e607ce852eb8d91625dc47ba1",
-        popularList: [],
-        image:'https://image.tmdb.org/t/p/w342'
+        img:'https://image.tmdb.org/t/p/w342',
+        
     }
 },
-mounted(){
-                axios.get(this.apiUrl + "movie/popular" + "?api_key=" + this.apiKey).then((res)=>{
-                    this.popularList = res.data.results;
-                })
-                .catch((err)=>{
-                    console.log(err)
-                })
-            
-}
+methods:{
+        FilmLanguage(film){
+                        if(film.original_language === 'en'){
+                            return 'gb'
+                        }else if(film.original_language === 'ja'){
+                            return 'jp'
+                        }else{
+                            return film.original_language
+                        }
+                    },
+                    transformScale(film){
+                        return Math.round(film.vote_average / 2)
+                    }
+        
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-
+h1{
+    color: whitesmoke;
+}
+.fa-solid{
+    color: #ffbd00;
+}
 .product-image {
 	transition: all 0.3s ease-out;
 	position: relative;
@@ -69,6 +84,7 @@ mounted(){
     width: 100%;
     left: 0;
     top: 0;
+    padding: 15px;
 }
 .info h2 {text-align: center}
 .product-image:hover .info{transform: translateX(0);}

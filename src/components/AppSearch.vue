@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold display-2">Boolflix</a>
+                <a href="#" class="navbar-brand fw-bold display-2">Boolflix</a>
                 <div class="search-box">
                     <button @click="$emit('performSearch', search)" class="btn-search"><i class="fas fa-search"></i></button>
                     <input class="input-search" v-model="search" @keyup.enter="$emit('performSearch', search)" placeholder="Cerca un film o una serie" type="text">

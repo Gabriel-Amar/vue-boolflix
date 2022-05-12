@@ -3,17 +3,17 @@
     <header>
       <app-search @performSearch="search"/>
     </header>
-      <app-main/>
     <main>
-      <app-grid :items="filmList" title="Film"/>
-      <app-grid :items="serieList" title="Serie"/>
+      <app-main :items="popularList" titolo="Popular"/>
+      <app-grid :items="filmList" />
+      <app-grid :items="serieList" />
     </main>
   </div>
 </template>
 
 <script>
-import AppSearch from './components/AppSearch.vue'
 import axios from "axios"
+import AppSearch from './components/AppSearch.vue'
 import AppGrid from './components/AppGrid.vue'
 import AppMain from './components/AppMain.vue'
 
@@ -37,22 +37,24 @@ export default {
     }
   },
   methods:{ 
-            cercaFilm(queryParams){
-                
-                axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
-                    this.filmList = res.data.results;
+    cercaFilm(queryParams){
+      axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
+        this.filmList = res.data.results;
+        this.popularList = "";
+        
                 })
                 .catch((err)=>{
-                    console.log(err)
+                  console.log(err)
                 })
             },
             cercaSerie(queryParams){
+              axios.get(this.apiUrl + "search/tv", queryParams).then((res)=>{
+                this.serieList = res.data.results;
+                this.popularList = ""
                 
-                axios.get(this.apiUrl + "search/tv", queryParams).then((res)=>{
-                    this.serieList = res.data.results;
                 })
                 .catch((err)=>{
-                    console.log(err)
+                  console.log(err)
                 })
             },
             
@@ -65,10 +67,28 @@ export default {
               }
               this.cercaFilm(queryParams)
               this.cercaSerie(queryParams)
-            }
-            
-            
+            },
+                  cercaPopular(){
+                    axios.get(this.apiUrl + "movie/popular" + "?api_key=" + this.apiKey).then((res)=>{
+                          this.popularList = res.data.results;
+                          console.log(res.data)
+                      })
+                      .catch((err)=>{
+                          console.log(err)
+                      })
+                  },
+  },
+  created(){
+                    axios.get(this.apiUrl + "movie/popular" + "?api_key=" + this.apiKey).then((res)=>{
+                          this.popularList = res.data.results;
+                          console.log(res.data)
+                      })
+                      .catch((err)=>{
+                          console.log(err)
+                      })
+                  
   }
+  
 }
 </script>
 
