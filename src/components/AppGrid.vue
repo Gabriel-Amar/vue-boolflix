@@ -5,17 +5,16 @@
         </div> -->
         <div class="container-fluid">
             <div class="row">
-            <div class="col-4" v-for="item in items" :key="item.id">
+            <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
                     <img class="img-fluid" :src="image + item.poster_path" alt="">
                     <div class="info">
                         <h2>{{item.title ? item.title : item.name}}</h2>
                             <div>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</div>
-                            <div>Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
-                            <div v-for="(n,index) in 5" :key="index">
+                            <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
+                            <span v-for="(n,index) in 5" :key="index">
                                 <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
-                            </div>
-                        
+                            </span>
                     </div>
                 </div>
             </div>
@@ -64,7 +63,8 @@ export default {
 	position: relative;
 	overflow: hidden;
 	display: inline-block;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    margin: 40px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 .info {
     background: rgba(27, 26, 26, 0.9);
