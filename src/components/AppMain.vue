@@ -11,7 +11,7 @@
                     <div class="info">
                         <h5 class="text-center">{{item.title}}</h5>
                             <div>Titolo originale: {{item.original_title}}</div>
-                            <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
+                            <div class="d-flex">Lingua: <country-flag class="mx-1" :country='FilmLanguage(item)' size=''/></div>
                             <span v-for="(n,index) in 5" :key="index">
                                 <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
                             </span>
@@ -62,6 +62,9 @@ h1{
 }
 .fa-solid{
     color: #ffbd00;
+}
+div.d-flex > span{
+    margin-top: -2px;
 }
 .product-image {
 	transition: all 0.3s ease-out;

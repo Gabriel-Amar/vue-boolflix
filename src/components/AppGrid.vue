@@ -10,8 +10,8 @@
                     <img class="img-fluid" v-else src="../assets/nt0ii3ns2zc29vwuqbug.jpg" alt="">
                     <div class="info">
                         <h5 class="text-center">{{item.title ? item.title : item.name}}</h5>
-                            <div>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</div>
-                            <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
+                            <div> <strong>Titolo originale:</strong>  {{item.original_title ? item.original_title : item.original_name}}</div>
+                            <div class="d-flex"> <span>Lingua:</span>  <country-flag class="mx-1" :country='FilmLanguage(item)' size=''/></div>
                             <span v-for="(n,index) in 5" :key="index">
                                 <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
                             </span>
@@ -62,7 +62,9 @@ h1{
 .fa-solid{
     color: #ffbd00;
 }
-
+div.d-flex > span.mx-1.flag.f-gb.normal-flag{
+    margin-top: -2px;
+}
 .product-image {
 	transition: all 0.3s ease-out;
 	position: relative;
