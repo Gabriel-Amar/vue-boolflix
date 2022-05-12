@@ -9,12 +9,13 @@
                 <div class="product-image">
                     <img class="img-fluid" :src="image + item.poster_path" alt="">
                     <div class="info">
-                        <h2>{{item.title ? item.title : item.name}}</h2>
+                        <h5 class="text-center">{{item.title ? item.title : item.name}}</h5>
                             <div>Titolo originale: {{item.original_title ? item.original_title : item.original_name}}</div>
                             <div class="d-flex">Lingua: <country-flag :country='FilmLanguage(item)' size='normal'/></div>
                             <span v-for="(n,index) in 5" :key="index">
                                 <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
                             </span>
+                            <div>Trama: {{item.overview}}</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fa-solid{
     color: #ffbd00;
 }

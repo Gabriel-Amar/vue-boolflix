@@ -3,6 +3,7 @@
     <header>
       <app-search @performSearch="search"/>
     </header>
+      <app-main/>
     <main>
       <app-grid :items="filmList" title="Film"/>
       <app-grid :items="serieList" title="Serie"/>
@@ -14,6 +15,7 @@
 import AppSearch from './components/AppSearch.vue'
 import axios from "axios"
 import AppGrid from './components/AppGrid.vue'
+import AppMain from './components/AppMain.vue'
 
 
 
@@ -22,20 +24,22 @@ export default {
   name: 'App',
   components: {
     AppSearch,
-    AppGrid
+    AppGrid,
+    AppMain
   },
   data(){
     return{
-            apiUrl: 'https://api.themoviedb.org/3/search/',
+            apiUrl: 'https://api.themoviedb.org/3/',
             apiKey: "f9f88b1e607ce852eb8d91625dc47ba1",
             filmList: [],
             serieList: [],
+            popularList: [],
     }
   },
   methods:{ 
             cercaFilm(queryParams){
                 
-                axios.get(this.apiUrl + "movie", queryParams).then((res)=>{
+                axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
                     this.filmList = res.data.results;
                 })
                 .catch((err)=>{
@@ -44,13 +48,14 @@ export default {
             },
             cercaSerie(queryParams){
                 
-                axios.get(this.apiUrl + "tv", queryParams).then((res)=>{
+                axios.get(this.apiUrl + "search/tv", queryParams).then((res)=>{
                     this.serieList = res.data.results;
                 })
                 .catch((err)=>{
                     console.log(err)
                 })
             },
+            
             search(text){
               const queryParams = {
                 params: {
