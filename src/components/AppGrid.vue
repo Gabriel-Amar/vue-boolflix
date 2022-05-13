@@ -1,108 +1,159 @@
 <template>
-    <section>
-        
-        <div class="container-fluid">
-            <div class="text-muted text-center display-1 m-auto" v-show="results"><i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono risultati</div>
-            <div class="row">
-            <div class="col-2" v-for="item in items" :key="item.id">
-                <div class="product-image">
-                    <img v-if="item.poster_path" class="img-fluid" :src="img + item.poster_path" alt="">
-                    <img class="img-fluid" v-else src="../assets/nt0ii3ns2zc29vwuqbug.jpg" alt="">
-                    <div class="info">
-                        <h5 class="text-center">{{item.title ? item.title : item.name}}</h5>
-                            <div> <strong>Titolo originale:</strong>  {{item.original_title ? item.original_title : item.original_name}}</div>
-                            <div class="d-flex"> <span>Lingua:</span>  <country-flag class="mx-1" :country='FilmLanguage(item)' size=''/></div>
-                            <span v-for="(n,index) in 5" :key="index">
-                                <span :class="n <= transformScale(item) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></span>
-                            </span>
-                            <div>Trama: {{item.overview}}</div>
-                    </div>
-                </div>
+  <section>
+    <div class="container-fluid">
+      <div class="text-muted text-center display-1 m-auto" v-show="results">
+        <i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono
+        risultati
+      </div>
+
+      <div class="row">
+        <div class="col-2" v-for="item in items" :key="item.id">
+          <div class="product-image">
+            <img
+              v-if="item.poster_path"
+              class="img-fluid"
+              :src="img + item.poster_path"
+              alt=""
+            />
+            <img
+              class="img-fluid"
+              v-else
+              src="../assets/nt0ii3ns2zc29vwuqbug.jpg"
+              alt=""
+            />
+            <div class="info">
+              <h5 class="text-center">
+                {{ item.title ? item.title : item.name }}
+              </h5>
+              <div>
+                <strong>Titolo originale:</strong>
+                {{
+                  item.original_title ? item.original_title : item.original_name
+                }}
+              </div>
+              <div class="d-flex">
+                <span> <strong>Lingua:</strong> </span>
+                <country-flag
+                  class="mx-1"
+                  :country="FilmLanguage(item)"
+                  size=""
+                />
+              </div>
+              <span v-for="(n, index) in 5" :key="index">
+                <span
+                  :class="
+                    n <= transformScale(item)
+                      ? 'fa-solid fa-star'
+                      : 'fa-regular fa-star'
+                  "
+                ></span>
+              </span>
+              <div><strong>Trama: </strong>{{ item.overview }}</div>
             </div>
-            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-    name: 'AppGrid',
-    props:{
-        items: Array,
-        titolo: String,
-        results: Boolean,
+  name: "AppGrid",
+  props: {
+    items: Array,
+    titolo: String,
+    results: Boolean,
+    titoloSerie: Boolean,
+    titoloFilm: Boolean,
+  },
+  data() {
+    return {
+      img: "https://image.tmdb.org/t/p/w342",
+    };
+  },
+  methods: {
+    FilmLanguage(film) {
+      if (film.original_language === "en") {
+        return "gb";
+      } else if (film.original_language === "ja") {
+        return "jp";
+      } else {
+        return film.original_language;
+      }
     },
-    data(){
-        return {
-            img:'https://image.tmdb.org/t/p/w342',
-        }
+    transformScale(film) {
+      return Math.round(film.vote_average / 2);
     },
-    methods:{
-        FilmLanguage(film){
-                        if(film.original_language === 'en'){
-                            return 'gb'
-                        }else if(film.original_language === 'ja'){
-                            return 'jp'
-                        }else{
-                            return film.original_language
-                        }
-                    },
-                    transformScale(film){
-                        return Math.round(film.vote_average / 2)
-                    }
-        
-    }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.info{
-    overflow-y: auto;
+.info {
+  overflow-y: auto;
 }
-.info::-webkit-scrollbar{
-    width: 3px;
+.info::-webkit-scrollbar {
+  width: 3px;
 }
-.fa-regular .fa-face-frown{
-    width: 500px;
+.fa-regular .fa-face-frown {
+  width: 500px;
 }
-h1{
-    color: whitesmoke;
+h1 {
+  color: whitesmoke;
 }
-.fa-solid{
-    color: #ffbd00;
+.fa-solid {
+  color: #ffbd00;
 }
-div.d-flex > span.mx-1.flag.f-gb.normal-flag{
-    margin-top: -2px;
+div.d-flex > span.mx-1.flag.f-gb.normal-flag {
+  margin-top: -2px;
 }
 .product-image {
-	transition: all 0.3s ease-out;
-	position: relative;
-	overflow: hidden;
-	display: inline-block;
-    margin: 40px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  transition: all 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin: 40px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 .info {
-    background: rgba(27, 26, 26, 0.9);
-    transition: all 0.3s ease-out;
-    transform: translateX(-100%);
-    position: absolute;
-    line-height: 1.8;
-    text-align: left;
-    font-size: 105%;
-    cursor: pointer;
-    color: #FFF;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    padding: 15px;
+  background: rgba(27, 26, 26, 0.9);
+  transition: all 0.3s ease-out;
+  transform: translateX(-100%);
+  position: absolute;
+  line-height: 1.8;
+  text-align: left;
+  font-size: 105%;
+  cursor: pointer;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  padding: 15px;
 }
-.info h2 {text-align: center}
-.product-image:hover .info{transform: translateX(0);}
-.info div{transition: 0.3s ease;}
+.info h2 {
+  text-align: center;
+}
+.product-image:hover .info {
+  transform: translateX(0);
+}
+.info div {
+  transition: 0.3s ease;
+}
 .product-image:hover img {
-    transition: all 0.3s ease-out;
-    animation:kenburns-top .5s ease-out both
-    }
-@keyframes kenburns-top{0%{transform:scale(1) translateY(0);transform-origin:50% 16%}100%{transform:scale(1.25) translateY(-15px);transform-origin:top}}</style>
+  transition: all 0.3s ease-out;
+  animation: kenburns-top 0.5s ease-out both;
+}
+@keyframes kenburns-top {
+  0% {
+    transform: scale(1) translateY(0);
+    transform-origin: 50% 16%;
+  }
+  100% {
+    transform: scale(1.25) translateY(-15px);
+    transform-origin: top;
+  }
+}
+</style>
