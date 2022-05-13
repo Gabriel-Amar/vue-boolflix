@@ -58,6 +58,12 @@ methods:{
 </script>
 
 <style lang="scss" scoped>
+.info{
+    overflow-y: auto;
+}
+.info::-webkit-scrollbar{
+    width: 3px;
+}
 h1{
     color: whitesmoke;
 }

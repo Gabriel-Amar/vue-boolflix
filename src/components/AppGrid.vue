@@ -2,7 +2,7 @@
     <section>
         
         <div class="container-fluid">
-            <div class="text-muted text-center display-1" v-show="results"><i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono risultati</div>
+            <div class="text-muted text-center display-1 m-auto" v-show="results"><i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono risultati</div>
             <div class="row">
             <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
@@ -56,6 +56,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.info{
+    overflow-y: auto;
+}
+.info::-webkit-scrollbar{
+    width: 3px;
+}
 .fa-regular .fa-face-frown{
     width: 500px;
 }

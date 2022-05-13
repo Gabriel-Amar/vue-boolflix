@@ -42,7 +42,7 @@ export default {
       axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
         this.filmList = res.data.results;
         this.popularList = "";
-        if(this.filmList.length == 0 || this.serieList.length == 0){
+        if(this.filmList.length == 0 && this.serieList.length == 0){
           this.noResults = true;
         }else{
           this.noResults = false;
@@ -58,7 +58,7 @@ export default {
               axios.get(this.apiUrl + "search/tv", queryParams).then((res)=>{
                 this.serieList = res.data.results;
                 this.popularList = ""
-                if(this.filmList.length == 0 || this.serieList.length == 0){
+                if(this.filmList.length == 0 && this.serieList.length == 0){
                     this.noResults = true;
                 }else{
                     this.noResults = false;
