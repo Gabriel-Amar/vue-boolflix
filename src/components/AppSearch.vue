@@ -1,15 +1,21 @@
 <template>
     <div>
-        <nav class="navbar navbar-dark bg-dark">
+        
             <div class="container-fluid">
-                <a href=""  class="navbar-brand fw-bold display-2">Boolflix</a>
-                <div class="home" href="" value="refresh" onclick="history.go(0)">Home</div>
+                <div class="align">
+                <a href=""  class="navbar-brand navbar-dark bg-dark fw-bold display-2">Boolflix</a>
+                  <div class="home" href="" value="refresh" onclick="history.go(0)">Home</div>
+                </div>
                 <div class="search-box">
                     <button @click="$emit('performSearch', search)" class="btn-search"><i class="fas fa-search"></i></button>
                     <input class="input-search" v-model="search" @keyup.enter="$emit('performSearch', search)" placeholder="Cerca un film o una serie" type="text">
                 </div>
-            </div>
-        </nav>
+                
+                  
+                </div>
+                
+            
+        
         
     </div>
 </template>
@@ -38,17 +44,25 @@ export default {
 
 <style lang="scss">
 @import "../assets/style/general.scss";
-
+.container-fluid{
+display: flex;
+  margin: 10px;
+      justify-content: space-between;
+    align-items: center;
+}
 .navbar-brand{
     color: $red !important;
     font-size: 25px !important;
 }
+.align{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .home{
-    
+    padding-top: 4px;
     font-weight: bold;
-    padding-top: 6px;
     color: whitesmoke;
-    display: inline;
 }
 .home:hover{
   text-decoration: underline;
