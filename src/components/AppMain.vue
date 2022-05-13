@@ -31,6 +31,7 @@ name: "AppMain",
 props:{
     items: Array,
     titolo: String,
+    
 },
 data(){
     return{

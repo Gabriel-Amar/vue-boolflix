@@ -5,7 +5,7 @@
     </header>
     <main>
       <app-main :items="popularList" titolo="Popular"/>
-      <app-grid :items="filmList" />
+      <app-grid :items="filmList" :results="noResults"/>
       <app-grid :items="serieList" />
     </main>
   </div>
@@ -34,6 +34,7 @@ export default {
             filmList: [],
             serieList: [],
             popularList: [],
+            noResults: false,
     }
   },
   methods:{ 
@@ -41,7 +42,13 @@ export default {
       axios.get(this.apiUrl + "search/movie", queryParams).then((res)=>{
         this.filmList = res.data.results;
         this.popularList = "";
+        if(this.filmList.length == 0 || this.serieList.length == 0){
+          this.noResults = true;
+        }else{
+          this.noResults = false;
+        }
         
+
                 })
                 .catch((err)=>{
                   console.log(err)
@@ -51,7 +58,11 @@ export default {
               axios.get(this.apiUrl + "search/tv", queryParams).then((res)=>{
                 this.serieList = res.data.results;
                 this.popularList = ""
-                
+                if(this.filmList.length == 0 || this.serieList.length == 0){
+                    this.noResults = true;
+                }else{
+                    this.noResults = false;
+        }
                 })
                 .catch((err)=>{
                   console.log(err)
@@ -77,6 +88,7 @@ export default {
                           console.log(err)
                       })
                   },
+                  
   },
   created(){
                     axios.get(this.apiUrl + "movie/popular" + "?api_key=" + this.apiKey).then((res)=>{

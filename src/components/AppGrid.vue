@@ -2,7 +2,7 @@
     <section>
         
         <div class="container-fluid">
-            
+            <div class="text-muted text-center display-1" v-show="results"><i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono risultati</div>
             <div class="row">
             <div class="col-2" v-for="item in items" :key="item.id">
                 <div class="product-image">
@@ -30,11 +30,11 @@ export default {
     props:{
         items: Array,
         titolo: String,
+        results: Boolean,
     },
     data(){
         return {
             img:'https://image.tmdb.org/t/p/w342',
-            
         }
     },
     methods:{
@@ -56,6 +56,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fa-regular .fa-face-frown{
+    width: 500px;
+}
 h1{
     color: whitesmoke;
 }

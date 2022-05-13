@@ -2,7 +2,8 @@
     <div>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand fw-bold display-2">Boolflix</a>
+                <a href=""  class="navbar-brand fw-bold display-2">Boolflix</a>
+                <div class="home" href="" value="refresh" onclick="history.go(0)">Home</div>
                 <div class="search-box">
                     <button @click="$emit('performSearch', search)" class="btn-search"><i class="fas fa-search"></i></button>
                     <input class="input-search" v-model="search" @keyup.enter="$emit('performSearch', search)" placeholder="Cerca un film o una serie" type="text">
@@ -27,7 +28,7 @@ export default {
         cerca(){
             this.$emit('performSearch', this.search)
             this.search = ''
-        }
+        },
     },
     computed:{
         
@@ -40,8 +41,19 @@ export default {
 
 .navbar-brand{
     color: $red !important;
+    font-size: 25px !important;
 }
-
+.home{
+    
+    font-weight: bold;
+    padding-top: 6px;
+    color: whitesmoke;
+    display: inline;
+}
+.home:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .search-box{
   width: fit-content;
