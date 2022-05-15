@@ -2,12 +2,12 @@
   <section>
     <div class="container-fluid">
       <div class="text-muted text-center display-1 m-auto" v-show="results">
-        <i class="fa-regular fa-face-frown d-block"></i> Mi dispiace non ci sono
+        <i class="fa-regular fa-face-frown d-block"></i> Mi dispiace, non ci sono
         risultati
       </div>
 
       <div class="row">
-        <div class="col-2" v-for="item in items" :key="item.id">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" v-for="item in items" :key="item.id">
           <div class="product-image">
             <img
               v-if="item.poster_path"
